@@ -16,12 +16,18 @@ namespace CaseManagement.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-
         }
 
-        //public DbSet<User> Users { get; set; }
-        //public DbSet<Order> Orders { get; set; }
-
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Appearance> Appearances { get; set; }
+        public DbSet<Charge> Charges { get; set; }
+        public DbSet<Citation> Citations { get; set; }
+        public DbSet<License> Licenses { get; set; }
+        public DbSet<Officer> Officers { get; set; }
+        public DbSet<Ordinance> Ordinances { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<TrafficCitation> TrafficCitations { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
 
     }
 }

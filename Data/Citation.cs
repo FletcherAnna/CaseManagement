@@ -11,11 +11,9 @@
         public int? MilePost { get; set; }
         public string? Location { get; set; }
 
-        public Officer citingOfficer { get; set; }
+        public Officer CitingOfficer { get; set; }
 
         public string EssentialFacts {get; set;}
-
-
 
     }
 }

@@ -1,10 +1,20 @@
 using CaseManagement.Components;
+using CaseManagement.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new InvalidOperationException("Connection string"
+        + "'DefaultConnection' not found.");
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options => 
+options.UseSqlServer(connectionString));
+
+
 
 var app = builder.Build();
 
@@ -23,5 +33,11 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    dbContext.Database.EnsureCreated();
+}
 
 app.Run();
