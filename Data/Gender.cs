@@ -1,6 +1,9 @@
 ﻿namespace CaseManagement.Data
 {
-    public class Gender
+    public enum Gender
     {
+        M,
+        F,
+        X
     }
 }

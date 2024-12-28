@@ -1,9 +1,16 @@
 ﻿namespace CaseManagement.Data
 {
-    public class LicenseTypes
+    public enum LicenseTypes
     {
-
-
+        LP,
+        V,
+        D,
+        E,
+        A,
+        B,
+        C,
+        ID,
+        Other
 
     }
 }

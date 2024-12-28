@@ -4,7 +4,7 @@
     {
         public int ID { get; set; }
         public string LicenseNo { get; set; }
-        public State state { get; set; }
+        public Region state { get; set; }
         public bool Commercial { get; set; }
 
         public LicenseTypes licenseType { get; set; }

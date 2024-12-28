@@ -11,7 +11,7 @@ namespace CaseManagement.Data
         public DateTime DoB { get; set; }
         public int? Height { get; set; }
         public int? Weight { get; set; }
-        public Gender? Gender { get; set; }
+        public Gender? gender { get; set; }
         public string EyeColor { get; set; }
         public Address? PhysicalAddress { get; set;}
         public Address? MailingAddress { get; set;}
