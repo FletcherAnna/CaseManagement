@@ -1,15 +1,18 @@
-using CaseManagement.Components;
-using CaseManagement.Data;
+using Application.Interfaces;
+using Infrastructure.Data;
+using Infrastructure.Services.OCR;
 using Microsoft.EntityFrameworkCore;
+using Presentation.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
         ?? throw new InvalidOperationException("Connection string"
         + "'DefaultConnection' not found.");
 
-// Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddScoped<IOcrService, TesseractOcrService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
 options.UseSqlServer(connectionString));
@@ -18,7 +21,6 @@ options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
@@ -34,10 +36,12 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    dbContext.Database.EnsureCreated();
-}
+
+
+//using (var scope = app.Services.CreateScope())
+//{
+//    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+//    dbContext.Database.EnsureCreated();
+//}
 
 app.Run();

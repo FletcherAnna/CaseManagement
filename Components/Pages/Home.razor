@@ -1,7 +1,23 @@
 ﻿@page "/"
+@using Application.Interfaces
+@inject IOcrService OcrService
 
-<PageTitle>Home</PageTitle>
+<h3>OCR </h3>
+<InputFile OnChange="HandleFileUpload" />
 
-<h1>Hello, world!</h1>
+@if (!string.IsNullOrWhiteSpace(ExtractedText))
+{
+    <h4>Extracted Text</h4>
+    <pre>@ExtractedText</pre>
+}
 
-Welcome to your new app.
+@code {
+    private string ExtractedText = string.Empty;
+
+    private async Task HandleFileUpload(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        using var stream = file.OpenReadStream(maxAllowedSize: 10_000_000);
+        ExtractedText = await OcrService.ExtractTextAsync(stream);
+    }
+}
